@@ -1,0 +1,6 @@
+[Unit]
+Description=Homelab Health Check
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/homelab-health.sh
