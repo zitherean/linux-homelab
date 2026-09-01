@@ -1,0 +1,29 @@
+# Secrets
+.env
+.env.*
+*.key
+*.pem
+
+# Databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+*.log
+
+# Backups
+*.bak
+*.backup
+
+# Editor / OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# SSH-related files
+id_rsa*
+id_ed25519*
+authorized_keys
+known_hosts
