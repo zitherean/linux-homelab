@@ -44,3 +44,60 @@ flowchart TD
     Timer --> Service
     Service --> Script
     Script --> Journal
+```
+
+## Services
+
+### Uptime Kuma
+
+Uptime Kuma runs as a Docker container and is used to monitor:
+
+- Home router availability
+- SSH availability on the server
+- External HTTP/HTTPS connectivity
+
+Docker Compose is used to define the container, persistent storage, port mapping, and restart policy.
+
+![Uptime Kuma Dashboard](screenshots/uptime-kuma-dashboard.png)
+
+## Automation
+
+### Health Check
+
+A Bash script performs a scheduled health check of the server, including:
+
+- Disk and memory usage
+- Hardware temperatures
+- Failed systemd services
+- Docker container status
+- SMART disk health
+- Router and Internet connectivity
+
+The script is executed automatically using a systemd service and timer.
+
+Results are stored in the systemd journal and can be viewed with:
+
+```bash
+journalctl -u homelab-health.service
+```
+![Automated Health Check](screenshots/health-check.png)
+
+## Networking
+
+The server uses Ethernet and receives its address through DHCP, with a DHCP reservation configured on the router to provide a stable LAN address.
+
+Docker creates separate bridge networks for containers, while published ports allow selected services to be accessed through the server's LAN address.
+
+For example:
+```bash 
+LAN:              192.168.x.x
+Docker bridge:    172.17.0.0/16
+Compose network:  172.18.0.0/16
+```
+
+## Planned Improvements
+- AdGuard Home for local DNS filtering
+- Health-check notifications
+- Backup and file-sharing services
+- Additional Docker services
+- Further networking and firewall configuration
